@@ -39,7 +39,7 @@ class _addperson extends State<addPerson> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            ClipOval(
+            const ClipOval(
               child: Image(
                 image: AssetImage('lib/images/photo.jpg'),
                 height: 200.0,
