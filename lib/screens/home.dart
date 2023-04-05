@@ -1,8 +1,8 @@
 import 'package:birthday_app/constants/constants.dart';
+import 'package:birthday_app/utils/contacts_permission.dart';
 import 'package:birthday_app/widgets/PopupMenuItem.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../widgets/contact_card.dart';
 
@@ -17,8 +17,8 @@ class Home extends StatelessWidget {
         title: Text('Birthday App'),
         actions: [
           PopupMenuButton(
-            onSelected: (value) {
-              //_onMenuItemSelected(value as int);
+            onSelected: (value) async {
+              await _onMenuItemSelected(value as int);
             },
             icon: Icon(Icons.more_vert),
             itemBuilder: (ctx) => [
@@ -75,13 +75,15 @@ class Home extends StatelessWidget {
     );
   }
 
-  /*_onMenuItemSelected(int value) {
-    setState(() {
-      _popupMenuItemIndex = value;
-    });
-
+  _onMenuItemSelected(int value) async {
     if (value == 1) {
       //TODO Contact import
+      final PermissionStatus permissionStatus = await getPermission();
+      print(permissionStatus);
+      print('test');
+      if (permissionStatus == PermissionStatus.granted) {
+        //We can now access our contacts here
+      }
     }
-  }*/
+  }
 }
