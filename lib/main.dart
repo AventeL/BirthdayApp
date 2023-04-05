@@ -19,7 +19,7 @@ class MainApp extends StatelessWidget {
         scaffoldBackgroundColor: scaffolBackgeoundColor,
         appBarTheme: AppBarTheme(color: blueColor),
       ),
-      home: const Home(),
+      home: Home(),
     );
   }
 }

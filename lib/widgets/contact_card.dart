@@ -1,3 +1,4 @@
+import 'package:birthday_app/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class contact_card extends StatelessWidget {
@@ -9,29 +10,51 @@ class contact_card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: 100,
-        color: Colors.amber,
-        child: Column(children: [
-          Row(
-            children: [Icon(Icons.ac_unit_outlined)],
-          ),
-          Row(
+    return Container(
+      height: 100,
+      color: Colors.white,
+      child: Row(children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
             children: [
-              Text(
+              Container(
+                width: 70,
+                height: 70,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: blueColor,
+                ),
+                child: Icon(
+                  Icons.person_outline_sharp,
+                  color: Colors.white,
+                  size: 45,
+                ),
+              )
+            ],
+          ),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Text(
                 '$nom $prenom',
                 style: TextStyle(fontSize: 16),
               ),
-              Text(
+            ),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Text(
                 '$date',
                 style: TextStyle(fontSize: 16),
               ),
-            ],
-          )
-        ]),
-      ),
+            ),
+          ],
+        )
+      ]),
     );
   }
 }
