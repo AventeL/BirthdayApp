@@ -11,7 +11,7 @@ class contact_card extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      height: 80,
       color: Colors.white,
       child: Row(children: [
         Padding(
