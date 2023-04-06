@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class contact_card extends StatelessWidget {
   final String nom;
   final String prenom;
-  final String date;
+  final DateTime date;
 
   contact_card({required this.nom, required this.prenom, required this.date});
 

@@ -1,4 +1,10 @@
+import 'dart:io';
+
+import 'package:birthday_app/constants/personModel.dart';
+import 'package:birthday_app/services/dbServices.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class EditPerson extends StatelessWidget {
@@ -21,6 +27,9 @@ class editPerson extends StatefulWidget {
 
 class _editperson extends State<editPerson> {
   TextEditingController dateInput = TextEditingController();
+  TextEditingController nameFieldController = TextEditingController();
+  TextEditingController surnameFieldController = TextEditingController();
+  late File myFile;
 
   @override
   void initState() {
@@ -39,13 +48,33 @@ class _editperson extends State<editPerson> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            const ClipOval(
-              child: Image(
-                image: AssetImage('lib/images/herbe.jpg'),
-                height: 200.0,
-                width: 200.0,
-                fit: BoxFit.cover,
-              ),
+            Stack(
+              children: [
+                const CircleAvatar(
+                  radius: 80.0,
+                  backgroundImage: AssetImage('lib/images/herbe.jpg'),
+                ),
+                Positioned(
+                  bottom: 20.0,
+                  right: 20.0,
+                  child: InkWell(
+                    onTap: () async {
+                      XFile? pickedFile = await ImagePicker()
+                          .pickImage(source: ImageSource.gallery);
+                      myFile = File(pickedFile!.path);
+                      if (myFile != null) {
+                        myFile = File(pickedFile.path);
+                      } else {
+                        myFile = File('lib/images/herbe.jpg');
+                      }
+                    },
+                    child: const Icon(
+                      Icons.camera_alt,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
               height: 40,
