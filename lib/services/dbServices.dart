@@ -1,13 +1,8 @@
-import 'dart:developer';
-import 'dart:io';
-import 'package:birthday_app/constants/userAppModel.dart';
-import 'package:birthday_app/screens/addperson.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:image_picker/image_picker.dart';
+
 import '../constants/personModel.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class DatabaseService {
   final String uid;
@@ -53,21 +48,19 @@ class DatabaseService {
   Future<String> uploadFile(file) async {
     Reference reference =
         storage.ref().child('persons/${uid}/${DateTime.now()}.png');
-    UploadTask uploadTask = reference.putFile(file);
-    TaskSnapshot snapshot = await uploadTask;
-    return await snapshot.ref.getDownloadURL();
+    if (file != null) {
+      UploadTask uploadTask = reference.putFile(file);
+      TaskSnapshot snapshot = await uploadTask;
+      return await snapshot.ref.getDownloadURL();
+    } else {
+      return '';
+    }
   }
 
   Future<void> removeFile(file) async {
     FirebaseStorage.instance.refFromURL(file).delete();
   }
-
- 
-
-
 }
-
-
 
 /*class DatabaseService {
   CollectionReference persons =
