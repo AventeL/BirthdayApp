@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 Color scaffolBackgeoundColor = Colors.white;
-Color blueColor = const Color.fromARGB(255, 0, 183, 250);
+Color blueColor = Colors.red;
 
 final contacts = [
   {"nom": "Dupont", "prenom": "Marie", "date": "2023-01-15"},

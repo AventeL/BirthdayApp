@@ -1,4 +1,10 @@
+import 'dart:io';
+
+import 'package:birthday_app/constants/personModel.dart';
+import 'package:birthday_app/services/dbServices.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class MySecondPage extends StatelessWidget {
@@ -21,6 +27,9 @@ class addPerson extends StatefulWidget {
 
 class _addperson extends State<addPerson> {
   TextEditingController dateInput = TextEditingController();
+  TextEditingController nameFieldController = TextEditingController();
+  TextEditingController surnameFieldController = TextEditingController();
+  File? myFile;
 
   @override
   void initState() {
@@ -39,13 +48,33 @@ class _addperson extends State<addPerson> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            const ClipOval(
-              child: Image(
-                image: AssetImage('lib/images/photo.jpg'),
-                height: 200.0,
-                width: 200.0,
-                fit: BoxFit.cover,
-              ),
+            Stack(
+              children: [
+                const CircleAvatar(
+                  radius: 80.0,
+                  backgroundImage: AssetImage('lib/images/herbe.jpg'),
+                ),
+                Positioned(
+                  bottom: 20.0,
+                  right: 20.0,
+                  child: InkWell(
+                    onTap: () async {
+                      XFile? pickedFile = await ImagePicker()
+                          .pickImage(source: ImageSource.gallery);
+                      myFile = File(pickedFile!.path);
+                      setState(() {
+                        if (myFile != null) {
+                          myFile = File(pickedFile.path);
+                        }
+                      });
+                    },
+                    child: const Icon(
+                      Icons.camera_alt,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
               height: 40,
@@ -54,6 +83,7 @@ class _addperson extends State<addPerson> {
               textAlign: TextAlign.left,
               enableSuggestions: false,
               autocorrect: false,
+              controller: nameFieldController,
               decoration: InputDecoration(
                 hintText: 'Nom',
                 border: OutlineInputBorder(
@@ -69,6 +99,7 @@ class _addperson extends State<addPerson> {
               textAlign: TextAlign.left,
               enableSuggestions: false,
               autocorrect: false,
+              controller: surnameFieldController,
               decoration: InputDecoration(
                 hintText: 'Prénom',
                 border: OutlineInputBorder(
@@ -120,7 +151,22 @@ class _addperson extends State<addPerson> {
                   ),
                   padding: const EdgeInsets.only(
                       top: 10.0, bottom: 10.0, left: 100.0, right: 100.0)),
-              onPressed: () async {},
+              onPressed: () async {
+                late String url;
+
+                url = await DatabaseService(
+                        uid: FirebaseAuth.instance.currentUser!.uid)
+                    .uploadFile(myFile);
+
+                await DatabaseService(
+                        uid: FirebaseAuth.instance.currentUser!.uid)
+                    .addMyPersons(Person(
+                        nom: nameFieldController.text,
+                        prenom: surnameFieldController.text,
+                        personUrlImage: url,
+                        dateNaissance:
+                            DateFormat("dd-MM-yyyy").parse(dateInput.text)));
+              },
               child: const Text('Ajouter'),
             ),
           ],

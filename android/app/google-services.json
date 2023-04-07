@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1070413767950",
+    "project_id": "birthday-5a122",
+    "storage_bucket": "birthday-5a122.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070413767950:android:38cf0d76a050b452aaa35f",
+        "android_client_info": {
+          "package_name": "com.example.birthday_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070413767950-121pe87859ps7thm98sf1juohihhvt6q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPEkfcjtfxmLX9NTy7SPhAsonht2PBPrg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070413767950-121pe87859ps7thm98sf1juohihhvt6q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1070413767950-a8oan914qb1a3cdhrm4afhskqqh4egj7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.birthdayApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
