@@ -17,6 +17,7 @@ class Home extends StatelessWidget {
   var _popupMenuItemIndex = 0;
 
   final FirebaseAuth fire = FirebaseAuth.instance;
+  final String UserUID = FirebaseAuth.instance.currentUser!.uid;
   final Future<List<Person>> maListe =
       DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid).getList();
 
@@ -62,11 +63,23 @@ class Home extends StatelessWidget {
                   return ListView.builder(
                       itemCount: audioList.length,
                       itemBuilder: (context, index) {
-                        return contact_card(
-                          nom: audioList[index].nom,
-                          prenom: audioList[index].prenom,
-                          date: audioList[index].dateNaissance,
-                        );
+                        return Dismissible(
+                            key: ValueKey<int>(index),
+                            onDismissed: (DismissDirection) async {
+                              DatabaseService(uid: UserUID)
+                                  .removeFile(audioList[index].personUrlImage);
+                              DatabaseService(uid: UserUID)
+                                  .removeMyPerson(audioList[index]);
+                              audioList.removeAt(index);
+                            },
+                            background: Container(
+                                color: Colors.red, child: Icon(Icons.delete)),
+                            child: contact_card(
+                              nom: audioList[index].nom,
+                              prenom: audioList[index].prenom,
+                              date: audioList[index].dateNaissance,
+                              personUrlImage: audioList[index].personUrlImage,
+                            ));
                       });
                 } else if (snapshot.hasError) {
                   // handle error here

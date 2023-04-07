@@ -1,12 +1,18 @@
 import 'package:birthday_app/constants/constants.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class contact_card extends StatelessWidget {
   final String nom;
   final String prenom;
   final DateTime date;
+  final String personUrlImage;
 
-  contact_card({required this.nom, required this.prenom, required this.date});
+  contact_card(
+      {required this.nom,
+      required this.prenom,
+      required this.date,
+      required this.personUrlImage});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +31,8 @@ class contact_card extends StatelessWidget {
                   shape: BoxShape.circle,
                   color: blueColor,
                 ),
-                child: Icon(
+                child: /* CachedNetworkImage(imageUrl: personUrlImage) */
+                    Icon(
                   Icons.person_outline_sharp,
                   color: Colors.white,
                   size: 45,

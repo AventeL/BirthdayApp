@@ -18,6 +18,16 @@ class Person {
         dateNaissance: (json['dateBirthday'] as Timestamp).toDate());
   }
 
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.prenom;
+    data['surname'] = this.nom;
+    data['personUrlImage'] = this.personUrlImage;
+    data['dateBirthday'] = Timestamp.fromDate(this.dateNaissance);
+    return data;
+    //return [this.nom, this.prenom, this.personUrlImage, Timestamp.fromDate(this.dateNaissance)];
+  }
+
   @override
   String toString() {
     return 'Person{nom: $nom, prenom: $prenom, personUrlImage: $personUrlImage, dateNaissance: $dateNaissance}';
