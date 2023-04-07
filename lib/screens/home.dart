@@ -1,16 +1,13 @@
 import 'package:birthday_app/constants/constants.dart';
-import 'package:birthday_app/constants/userAppModel.dart';
 import 'package:birthday_app/services/dbServices.dart';
 import 'package:birthday_app/utils/contacts_permission.dart';
-import 'package:birthday_app/widgets/PopupMenuItem.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:provider/provider.dart';
 
 import '../constants/personModel.dart';
 import '../widgets/contact_card.dart';
+import 'package:http/http.dart' as http;
 
 class Home extends StatelessWidget {
   Home({super.key});
@@ -75,11 +72,11 @@ class Home extends StatelessWidget {
                             background: Container(
                                 color: Colors.red, child: Icon(Icons.delete)),
                             child: contact_card(
-                              nom: audioList[index].nom,
-                              prenom: audioList[index].prenom,
-                              date: audioList[index].dateNaissance,
-                              personUrlImage: audioList[index].personUrlImage,
-                            ));
+                                nom: audioList[index].nom,
+                                prenom: audioList[index].prenom,
+                                date: audioList[index].dateNaissance,
+                                personUrlImage:
+                                    audioList[index].personUrlImage));
                       });
                 } else if (snapshot.hasError) {
                   // handle error here

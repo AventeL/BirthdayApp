@@ -16,6 +16,7 @@ class contact_card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return Container(
       height: 80,
       color: Colors.white,
@@ -24,20 +25,27 @@ class contact_card extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              Container(
-                width: 70,
-                height: 70,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: blueColor,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: CachedNetworkImage(
+                  imageUrl: personUrlImage,
+                  placeholder: (BuildContext context, String url) =>
+                      const CircleAvatar(
+                    child: Icon(
+                      Icons.person,
+                      size: 156,
+                    ),
+                  ),
+                  errorWidget:
+                      (BuildContext context, String url, dynamic error) =>
+                          const CircleAvatar(
+                    child: Icon(
+                      Icons.person,
+                      size: 156,
+                    ),
+                  ),
                 ),
-                child: /* CachedNetworkImage(imageUrl: personUrlImage) */
-                    Icon(
-                  Icons.person_outline_sharp,
-                  color: Colors.white,
-                  size: 45,
-                ),
-              )
+              ),
             ],
           ),
         ),
